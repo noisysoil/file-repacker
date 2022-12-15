@@ -1,9 +1,11 @@
 # file-repacker
-A tool to compress files from one directory to another.
+A tool to selectively compress or copy files.
 
-If the specified files are of '.zip' or '.7z' extensions then they are recompressed to 7zip using the specified (default=9, maximum) LZMA2 compression level.
+For example, '.html' and '.csv' files in a directory can be specified to be compressed and all the rest are copied.
 
-It performs in-memory processing of files thus no unnecessary intermediary disk operations are performed.
+If the specified files are of '.zip' or '.7z' extensions then they are re-compressed to 7zip using the specified (default=9, maximum) LZMA2 compression level.
+
+It performs in-memory processing of files thus no unnecessary intermediate disk operations are performed.
 
 Configurable multi-processing is used to make use of available CPU threads / cores.
 
