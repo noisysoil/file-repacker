@@ -63,7 +63,6 @@ def process_files(filename: str, current_relative_path: str, current_path: str, 
         post_file_processing = FileOperations.COPY
     elif file_extension in file_extensions_to_compress:
         logging.info(f":PID-{process_pid}: Compressing: [{current_path}{file_basename}{file_extension}]")
-        os.makedirs(f"{destination_directory}{current_relative_path}", exist_ok=True)
         destination_archive_filename = f"{destination_directory}{current_relative_path}{file_basename}.7z"
         compressed_archive = py7zr.SevenZipFile(destination_archive_filename, mode="w", filters=compression_filters)
         # -- Check if file is 7zip.
@@ -117,7 +116,6 @@ def process_files(filename: str, current_relative_path: str, current_path: str, 
                 compressed_archive.close()
         # Otherwise compress files with any specified extensions.
         else:
-            os.makedirs(f"{destination_directory}{current_relative_path}", exist_ok=True)
             compressed_archive.write(f"{current_path}{filename}", arcname=filename)
             post_file_processing = FileOperations.DO_NOTHING
             compressed_archive.close()
@@ -126,7 +124,6 @@ def process_files(filename: str, current_relative_path: str, current_path: str, 
     if post_file_processing == FileOperations.COPY:
         destination_archive_filename = f"{destination_directory}{current_relative_path}{filename}"
         logger.info(f":PID-{process_pid}: Copying from [{current_path}{filename}] to target [{destination_archive_filename}]")
-        os.makedirs(f"{destination_directory}{current_relative_path}", exist_ok=True)
         shutil.copy(f"{current_path}{filename}", destination_archive_filename, follow_symlinks=True)
 
     empty_file.close()
